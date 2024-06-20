@@ -14,7 +14,7 @@
 		3A493E3B2C065104001171E8 /* ProjectXTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A493E3A2C065104001171E8 /* ProjectXTests.swift */; };
 		3A493E452C065104001171E8 /* ProjectXUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A493E442C065104001171E8 /* ProjectXUITests.swift */; };
 		3A493E472C065104001171E8 /* ProjectXUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A493E462C065104001171E8 /* ProjectXUITestsLaunchTests.swift */; };
-		3A75C57A2C1B6417002137FF /* Networking in Resources */ = {isa = PBXBuildFile; fileRef = 3A75C5782C1B6417002137FF /* Networking */; };
+		3A99A9C22C2078BC00244E8A /* Router in Frameworks */ = {isa = PBXBuildFile; productRef = 3A99A9C12C2078BC00244E8A /* Router */; };
 		3ACB474D2C10E83300C2C879 /* Networking in Frameworks */ = {isa = PBXBuildFile; productRef = 3ACB474C2C10E83300C2C879 /* Networking */; };
 /* End PBXBuildFile section */
 
@@ -36,6 +36,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		3A463FEE2C2073A5000AE83B /* Networking */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = Networking; path = Frameworks/Networking; sourceTree = "<group>"; };
 		3A493E262C065103001171E8 /* ProjectX.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ProjectX.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3A493E292C065103001171E8 /* ProjectXApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectXApp.swift; sourceTree = "<group>"; };
 		3A493E2B2C065103001171E8 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -46,7 +47,7 @@
 		3A493E402C065104001171E8 /* ProjectXUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ProjectXUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		3A493E442C065104001171E8 /* ProjectXUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectXUITests.swift; sourceTree = "<group>"; };
 		3A493E462C065104001171E8 /* ProjectXUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectXUITestsLaunchTests.swift; sourceTree = "<group>"; };
-		3A75C5782C1B6417002137FF /* Networking */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = Networking; sourceTree = "<group>"; };
+		3A99A9C02C20745C00244E8A /* Router */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = Router; path = Frameworks/Router; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -55,6 +56,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				3ACB474D2C10E83300C2C879 /* Networking in Frameworks */,
+				3A99A9C22C2078BC00244E8A /* Router in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -78,7 +80,6 @@
 		3A493E1D2C065103001171E8 = {
 			isa = PBXGroup;
 			children = (
-				3A75C5792C1B6417002137FF /* Foundation */,
 				3A493E282C065103001171E8 /* ProjectX */,
 				3A493E392C065104001171E8 /* ProjectXTests */,
 				3A493E432C065104001171E8 /* ProjectXUITests */,
@@ -133,17 +134,11 @@
 			path = ProjectXUITests;
 			sourceTree = "<group>";
 		};
-		3A75C5792C1B6417002137FF /* Foundation */ = {
-			isa = PBXGroup;
-			children = (
-				3A75C5782C1B6417002137FF /* Networking */,
-			);
-			path = Foundation;
-			sourceTree = "<group>";
-		};
 		3ACB474B2C10E83300C2C879 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				3A99A9C02C20745C00244E8A /* Router */,
+				3A463FEE2C2073A5000AE83B /* Networking */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -166,6 +161,7 @@
 			name = ProjectX;
 			packageProductDependencies = (
 				3ACB474C2C10E83300C2C879 /* Networking */,
+				3A99A9C12C2078BC00244E8A /* Router */,
 			);
 			productName = ProjectX;
 			productReference = 3A493E262C065103001171E8 /* ProjectX.app */;
@@ -255,7 +251,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3A75C57A2C1B6417002137FF /* Networking in Resources */,
 				3A493E312C065104001171E8 /* Preview Assets.xcassets in Resources */,
 				3A493E2E2C065104001171E8 /* Assets.xcassets in Resources */,
 			);
@@ -615,6 +610,10 @@
 /* End XCConfigurationList section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		3A99A9C12C2078BC00244E8A /* Router */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = Router;
+		};
 		3ACB474C2C10E83300C2C879 /* Networking */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = Networking;
