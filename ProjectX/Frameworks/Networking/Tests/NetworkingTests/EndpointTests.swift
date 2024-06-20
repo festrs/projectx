@@ -29,7 +29,7 @@ final class EndpointTests: XCTestCase {
             path: "/to/endpoint",
             method: .post,
             bodyParameter: .dictionary(bodyParameters)
-        )
+        ) 
 
         let request: URLRequest = try endpoint.makeRequest(host: "testing.com", with: ())
         let expectedUrl = URL(string: "https://testing.com/to/endpoint")
