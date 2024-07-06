@@ -15,6 +15,7 @@
 		3A493E452C065104001171E8 /* ProjectXUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A493E442C065104001171E8 /* ProjectXUITests.swift */; };
 		3A493E472C065104001171E8 /* ProjectXUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A493E462C065104001171E8 /* ProjectXUITestsLaunchTests.swift */; };
 		3A99A9C22C2078BC00244E8A /* Router in Frameworks */ = {isa = PBXBuildFile; productRef = 3A99A9C12C2078BC00244E8A /* Router */; };
+		3AB248C22C2B61010079129A /* Ledger in Frameworks */ = {isa = PBXBuildFile; productRef = 3AB248C12C2B61010079129A /* Ledger */; };
 		3ACB474D2C10E83300C2C879 /* Networking in Frameworks */ = {isa = PBXBuildFile; productRef = 3ACB474C2C10E83300C2C879 /* Networking */; };
 /* End PBXBuildFile section */
 
@@ -48,6 +49,7 @@
 		3A493E442C065104001171E8 /* ProjectXUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectXUITests.swift; sourceTree = "<group>"; };
 		3A493E462C065104001171E8 /* ProjectXUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectXUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		3A99A9C02C20745C00244E8A /* Router */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = Router; path = Frameworks/Router; sourceTree = "<group>"; };
+		3A99A9C42C248CDB00244E8A /* Ledger */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = Ledger; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -56,6 +58,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				3ACB474D2C10E83300C2C879 /* Networking in Frameworks */,
+				3AB248C22C2B61010079129A /* Ledger in Frameworks */,
 				3A99A9C22C2078BC00244E8A /* Router in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -80,6 +83,7 @@
 		3A493E1D2C065103001171E8 = {
 			isa = PBXGroup;
 			children = (
+				3A99A9C32C248BBD00244E8A /* Feature */,
 				3A493E282C065103001171E8 /* ProjectX */,
 				3A493E392C065104001171E8 /* ProjectXTests */,
 				3A493E432C065104001171E8 /* ProjectXUITests */,
@@ -134,6 +138,14 @@
 			path = ProjectXUITests;
 			sourceTree = "<group>";
 		};
+		3A99A9C32C248BBD00244E8A /* Feature */ = {
+			isa = PBXGroup;
+			children = (
+				3A99A9C42C248CDB00244E8A /* Ledger */,
+			);
+			path = Feature;
+			sourceTree = "<group>";
+		};
 		3ACB474B2C10E83300C2C879 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -162,6 +174,7 @@
 			packageProductDependencies = (
 				3ACB474C2C10E83300C2C879 /* Networking */,
 				3A99A9C12C2078BC00244E8A /* Router */,
+				3AB248C12C2B61010079129A /* Ledger */,
 			);
 			productName = ProjectX;
 			productReference = 3A493E262C065103001171E8 /* ProjectX.app */;
@@ -613,6 +626,10 @@
 		3A99A9C12C2078BC00244E8A /* Router */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = Router;
+		};
+		3AB248C12C2B61010079129A /* Ledger */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = Ledger;
 		};
 		3ACB474C2C10E83300C2C879 /* Networking */ = {
 			isa = XCSwiftPackageProductDependency;

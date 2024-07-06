@@ -8,22 +8,17 @@
 import SwiftUI
 import Networking
 import Router
+import Ledger
 
 struct ContentView: View {
     let service = NetworkService(host: "www.demo.com")
-    @ObservedObject var router = Router()
+    @StateObject var router = Router()
 
     var body: some View {
-        VStack {
-            Image(systemName: "globe")
-                .imageScale(.large)
-                .foregroundStyle(.tint)
-            Text("Hello, world!")
+        NavigationStack(path: $router.navPath) {
+            LedgerCoordinator()
         }
-        .padding()
-        .sheet(item: $router.presentedSheet) { destination in
-            
-        }
+        .environmentObject(router)
     }
 }
 

@@ -39,31 +39,27 @@ public enum NetworkError: Error, Equatable {
 
 public protocol NetworkRequestable: AnyObject {
     @discardableResult
-    func publisher<K, R: Decodable>(
-        for endpoint: Endpoint<K>,
-        using requestData: K.RequestData,
+    func publisher<R: Decodable>(
+        for endpoint: Endpoint,
         decoder: JSONDecoder
     ) -> AnyPublisher<R, NetworkError>
 
     @available(iOS 15.0, *)
-    func request<K, R: Decodable>(
-        for endpoint: Endpoint<K>,
-        using requestData: K.RequestData,
+    func request<R: Decodable>(
+        for endpoint: Endpoint,
         decoder: JSONDecoder
     ) async throws -> R
 
     @discardableResult
-    func dataTask<K>(
-        for endpoint: Endpoint<K>,
-        using requestData: K.RequestData,
+    func dataTask(
+        for endpoint: Endpoint,
         decoder: JSONDecoder,
         completion: @escaping ((Result<Data, NetworkError>) -> Void)
     ) -> URLSessionDataTask?
 
     @discardableResult
-    func request<K, R: Decodable>(
-        for endpoint: Endpoint<K>,
-        using requestData: K.RequestData,
+    func request<R: Decodable>(
+        for endpoint: Endpoint,
         decoder: JSONDecoder,
         completion: @escaping (Result<R, NetworkError>) -> Void
     ) -> URLSessionDataTask?
@@ -98,13 +94,12 @@ extension NetworkService: NetworkRequestable {
     }
 
     @discardableResult
-    public func request<K, R: Decodable>(
-        for endpoint: Endpoint<K>,
-        using requestData: K.RequestData,
+    public func request<R: Decodable>(
+        for endpoint: Endpoint,
         decoder: JSONDecoder = .init(),
         completion: @escaping (Result<R, NetworkError>) -> Void
     ) -> URLSessionDataTask? {
-        return dataTask(for: endpoint, using: requestData) { (result) in
+        return dataTask(for: endpoint) { (result) in
             switch result {
             case let .success(data):
                 do {
@@ -120,13 +115,12 @@ extension NetworkService: NetworkRequestable {
     }
 
     @discardableResult
-    public func dataTask<K>(
-        for endpoint: Endpoint<K>,
-        using requestData: K.RequestData,
+    public func dataTask(
+        for endpoint: Endpoint,
         decoder: JSONDecoder = .init(),
         completion: @escaping ((Result<Data, NetworkError>) -> Void)
     ) -> URLSessionDataTask? {
-        guard let request = try? endpoint.makeRequest(host: host, with: requestData) else {
+        guard let request = try? endpoint.makeRequest(host: host) else {
             completion(.failure(.invalidEndpointError))
             return nil
         }
@@ -162,12 +156,11 @@ extension NetworkService: NetworkRequestable {
         return task
     }
 
-    public func publisher<K, R: Decodable>(
-        for endpoint: Endpoint<K>,
-        using requestData: K.RequestData,
+    public func publisher<R: Decodable>(
+        for endpoint: Endpoint,
         decoder: JSONDecoder = .init()
     ) -> AnyPublisher<R, NetworkError> {
-        guard let request = try? endpoint.makeRequest(host: host, with: requestData) else {
+        guard let request = try? endpoint.makeRequest(host: host) else {
             return Fail(error: NetworkError.invalidEndpointError).eraseToAnyPublisher()
         }
         return urlSession
@@ -202,12 +195,11 @@ extension NetworkService: NetworkRequestable {
 
 @available(iOS 15.0, *)
 extension NetworkService {
-    public func request<K, R>(
-        for endpoint: Endpoint<K>,
-        using requestData: K.RequestData,
+    public func request<R>(
+        for endpoint: Endpoint,
         decoder: JSONDecoder = .init()
-    ) async throws -> R where K: EndpointKind, R: Decodable {
-        let request: URLRequest = try endpoint.makeRequest(host: host, with: requestData)
+    ) async throws -> R where R: Decodable {
+        let request: URLRequest = try endpoint.makeRequest(host: host)
         let (data, response) = try await urlSession.data(for: request, delegate: nil)
 
         guard let response = response as? HTTPURLResponse,

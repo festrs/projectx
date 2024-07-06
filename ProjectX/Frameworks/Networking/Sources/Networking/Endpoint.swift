@@ -14,9 +14,11 @@ public enum BodyParameter {
     case encodable(Encodable, encoder: JSONEncoder = .init())
 }
 
-public struct Endpoint<Kind: EndpointKind> {
+public struct Endpoint {
     public let path: String
     public var method: Method = .get
+    public let port: Int?
+    public let scheme: String
     public let urlQueries: [String: String]?
     public let headers: [String: String]?
     public let bodyParameter: BodyParameter?
@@ -31,13 +33,17 @@ public struct Endpoint<Kind: EndpointKind> {
 
     public init(
         path: String,
-        method: Endpoint<Kind>.Method = .get,
+        method: Endpoint.Method = .get,
+        scheme: String = "https",
+        port: Int? = nil,
         urlQueries: [String: String]? = nil,
         headers: [String: String]? = nil,
         bodyParameter: BodyParameter? = nil
     ) {
         self.path = path
         self.method = method
+        self.scheme = scheme
+        self.port = port
         self.urlQueries = urlQueries
         self.headers = headers
         self.bodyParameter = bodyParameter
@@ -52,11 +58,12 @@ extension Endpoint {
 }
 
 extension Endpoint {
-    func makeRequest(host: String, with data: Kind.RequestData) throws -> URLRequest {
+    func makeRequest(host: String) throws -> URLRequest {
         var components = URLComponents()
-        components.scheme = "https"
+        components.scheme = scheme
         components.host = host
         components.path = path
+        components.port = port
         if let urlQueries = urlQueries {
             var queryItems: [URLQueryItem] = []
             for item in urlQueries {
@@ -83,8 +90,6 @@ extension Endpoint {
         default:
             break
         }
-
-        Kind.prepare(&request, with: data)
         return request
     }
 }

@@ -23,10 +23,9 @@ final class NetworkingPublisherTests: NetworkingTests {
     func testPublisherResponseGetSuccess() throws {
         sessionMock.dataResponse = .success((responseData, URLResponse()))
 
-        let endpoint = Endpoint<EndpointKinds.Public>(path: "/object/response/success")
+        let endpoint = Endpoint(path: "/object/response/success")
         let publisher: ReturnType = sut.publisher(
             for: endpoint,
-            using: (),
             decoder: decoder
         )
 
@@ -37,10 +36,9 @@ final class NetworkingPublisherTests: NetworkingTests {
     func testPublisherResponsePostSuccess() throws {
         sessionMock.dataResponse = .success((responseData, URLResponse()))
 
-        let endpoint = Endpoint<EndpointKinds.Public>(path: "/object/response/success", method: .post)
+        let endpoint = Endpoint(path: "/object/response/success", method: .post)
         let publisher: ReturnType = sut.publisher(
             for: endpoint,
-            using: (),
             decoder: decoder
         )
 
@@ -51,10 +49,9 @@ final class NetworkingPublisherTests: NetworkingTests {
     func testPublisherNotConnectedToInternetFailure() {
         sessionMock.dataResponse = .failure(.init(.notConnectedToInternet))
 
-        let endpoint = Endpoint<EndpointKinds.Public>(path: "/to/failure")
+        let endpoint = Endpoint(path: "/to/failure")
         let publisher: ReturnType = sut.publisher(
             for: endpoint,
-            using: (),
             decoder: decoder
         )
 
@@ -70,10 +67,9 @@ final class NetworkingPublisherTests: NetworkingTests {
     func testPublisherObjectResponseDataEmptyFailure() {
         sessionMock.dataResponse = .success((Data(), URLResponse()))
 
-        let endpoint = Endpoint<EndpointKinds.Public>(path: "/to/dataempty")
+        let endpoint = Endpoint(path: "/to/dataempty")
         let publisher: ReturnType = sut.publisher(
             for: endpoint,
-            using: (),
             decoder: decoder
         )
 
@@ -98,10 +94,9 @@ final class NetworkingPublisherTests: NetworkingTests {
 
         sessionMock.dataResponse = .success((Data(), response))
 
-        let endpoint = Endpoint<EndpointKinds.Public>(path: "/to/unauthorized")
+        let endpoint = Endpoint(path: "/to/unauthorized")
         let publisher: ReturnType = sut.publisher(
             for: endpoint,
-            using: (),
             decoder: decoder
         )
 
@@ -115,10 +110,9 @@ final class NetworkingPublisherTests: NetworkingTests {
     }
 
     func testPublisherObjectResponseEndpointFailure() {
-        let endpoint = Endpoint<EndpointKinds.Public>(path: "unauthorized")
+        let endpoint = Endpoint(path: "unauthorized")
         let publisher: ReturnType = sut.publisher(
             for: endpoint,
-            using: (),
             decoder: decoder
         )
 
@@ -145,10 +139,9 @@ final class NetworkingPublisherTests: NetworkingTests {
         )
         sessionMock.dataResponse = .success((data, URLResponse()))
 
-        let endpoint = Endpoint<EndpointKinds.Public>(path: "/object/response/date")
+        let endpoint = Endpoint(path: "/object/response/date")
         let publisher: ReturnType = sut.publisher(
             for: endpoint,
-            using: (),
             decoder: decoder
         )
 

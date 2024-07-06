@@ -14,8 +14,8 @@ final class NetworkingAwaitAsyncTests: NetworkingTests {
     func testAwaitAsyncSuccess() async throws {
         sessionMock.dataResponse = .success((responseData, try createResponse(with: .success)))
 
-        let endpoint = Endpoint<EndpointKinds.Public>(path: "/object/response/success")
-        let object: MockResponse = try await sut.request(for: endpoint, using: (), decoder: decoder)
+        let endpoint = Endpoint(path: "/object/response/success")
+        let object: MockResponse = try await sut.request(for: endpoint, decoder: decoder)
 
         XCTAssertEqual(object.title, "Mocker")
     }
@@ -23,9 +23,9 @@ final class NetworkingAwaitAsyncTests: NetworkingTests {
     func testAwaitAsyncNetworkError() async throws {
         sessionMock.dataResponse = .success((Data(), try createResponse(with: .unauthorized)))
 
-        let endpoint = Endpoint<EndpointKinds.Public>(path: "/object/response/success")
+        let endpoint = Endpoint(path: "/object/response/success")
         do {
-            let _: MockResponse = try await sut.request(for: endpoint, using: (), decoder: decoder)
+            let _: MockResponse = try await sut.request(for: endpoint, decoder: decoder)
         } catch let error as NetworkError {
             XCTAssertEqual(error, .serverSideError(.unauthorized))
         } catch {
@@ -36,9 +36,9 @@ final class NetworkingAwaitAsyncTests: NetworkingTests {
     func testAwaitAsyncURLError() async throws {
         sessionMock.dataResponse = .failure(URLError(.notConnectedToInternet))
 
-        let endpoint = Endpoint<EndpointKinds.Public>(path: "/object/response/success")
+        let endpoint = Endpoint(path: "/object/response/success")
         do {
-            let _: MockResponse = try await sut.request(for: endpoint, using: (), decoder: decoder)
+            let _: MockResponse = try await sut.request(for: endpoint, decoder: decoder)
         } catch let error as URLError {
             XCTAssertEqual(error, URLError(.notConnectedToInternet))
         } catch {
@@ -60,8 +60,8 @@ final class NetworkingAwaitAsyncTests: NetworkingTests {
         )
         sessionMock.dataResponse = .success((data, try createResponse(with: .success)))
 
-        let endpoint = Endpoint<EndpointKinds.Public>(path: "/object/response/date")
-        let object: MockResponse = try await sut.request(for: endpoint, using: (), decoder: decoder)
+        let endpoint = Endpoint(path: "/object/response/date")
+        let object: MockResponse = try await sut.request(for: endpoint, decoder: decoder)
 
         XCTAssertEqual(object.date, yyyyMMdd.date(from: "2020-11-05"))
     }

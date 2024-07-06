@@ -39,9 +39,9 @@ final class NetworkingCallback: NetworkingTests {
         sessionMock.data = responseData
         sessionMock.urlResponse = try createResponse(with: .success)
 
-        let endpoint = Endpoint<EndpointKinds.Public>(path: "/object/response/success")
+        let endpoint = Endpoint(path: "/object/response/success")
         let exp = XCTestExpectation(description: #function)
-        sut.request(for: endpoint, using: (), decoder: decoder) { (result: Result<MockResponse, NetworkError>) in
+        sut.request(for: endpoint, decoder: decoder) { (result: Result<MockResponse, NetworkError>) in
             switch result {
             case let .success(object):
                 XCTAssertEqual(object.title, "Mocker")
@@ -57,9 +57,9 @@ final class NetworkingCallback: NetworkingTests {
         sessionMock.data = responseData
         sessionMock.urlResponse = try createResponse(with: .success)
 
-        let endpoint = Endpoint<EndpointKinds.Public>(path: "/object/response/success", method: .post)
+        let endpoint = Endpoint(path: "/object/response/success", method: .post)
         let exp = XCTestExpectation(description: #function)
-        sut.request(for: endpoint, using: (), decoder: decoder) { (result: Result<MockResponse, NetworkError>) in
+        sut.request(for: endpoint, decoder: decoder) { (result: Result<MockResponse, NetworkError>) in
             switch result {
             case let .success(object):
                 XCTAssertEqual(object.title, "Mocker")
@@ -74,9 +74,9 @@ final class NetworkingCallback: NetworkingTests {
     func testRequestObjectReponseFailure() {
         sessionMock.error = URLError(.notConnectedToInternet)
 
-        let endpoint = Endpoint<EndpointKinds.Public>(path: "/to/failure")
+        let endpoint = Endpoint(path: "/to/failure")
         let exp = XCTestExpectation(description: #function)
-        sut.request(for: endpoint, using: (), decoder: decoder) { (result: Result<MockResponse, NetworkError>) in
+        sut.request(for: endpoint, decoder: decoder) { (result: Result<MockResponse, NetworkError>) in
             switch result {
             case .success:
                 XCTFail("Should return error")
@@ -92,9 +92,9 @@ final class NetworkingCallback: NetworkingTests {
         sessionMock.data = Data()
         sessionMock.urlResponse = try createResponse(with: .success)
 
-        let endpoint = Endpoint<EndpointKinds.Public>(path: "/to/dataempty")
+        let endpoint = Endpoint(path: "/to/dataempty")
         let exp = XCTestExpectation(description: #function)
-        sut.request(for: endpoint, using: (), decoder: decoder) { (result: Result<MockResponse, NetworkError>) in
+        sut.request(for: endpoint, decoder: decoder) { (result: Result<MockResponse, NetworkError>) in
             switch result {
             case .success:
                 XCTFail("Should return error")
@@ -109,9 +109,9 @@ final class NetworkingCallback: NetworkingTests {
     func testRequestObjectResponseUnauthorizedFailure() throws {
         sessionMock.urlResponse = try createResponse(with: .unauthorized)
 
-        let endpoint = Endpoint<EndpointKinds.Public>(path: "/to/unauthorized")
+        let endpoint = Endpoint(path: "/to/unauthorized")
         let exp = XCTestExpectation(description: #function)
-        sut.request(for: endpoint, using: (), decoder: decoder) { (result: Result<MockResponse, NetworkError>) in
+        sut.request(for: endpoint, decoder: decoder) { (result: Result<MockResponse, NetworkError>) in
             switch result {
             case .success:
                 XCTFail("Should return error")
@@ -124,9 +124,9 @@ final class NetworkingCallback: NetworkingTests {
     }
 
     func testRequestObjectResponseEndpointFailure() throws {
-        let endpoint = Endpoint<EndpointKinds.Public>(path: "unauthorized")
+        let endpoint = Endpoint(path: "unauthorized")
         let exp = XCTestExpectation(description: #function)
-        sut.request(for: endpoint, using: (), decoder: decoder) { (result: Result<MockResponse, NetworkError>) in
+        sut.request(for: endpoint, decoder: decoder) { (result: Result<MockResponse, NetworkError>) in
             switch result {
             case .success:
                 XCTFail("Should return error")
@@ -153,9 +153,9 @@ final class NetworkingCallback: NetworkingTests {
         sessionMock.data = data
         sessionMock.urlResponse = try createResponse(with: .success)
 
-        let endpoint = Endpoint<EndpointKinds.Public>(path: "/object/response/date")
+        let endpoint = Endpoint(path: "/object/response/date")
         let exp = XCTestExpectation(description: #function)
-        sut.request(for: endpoint, using: (), decoder: decoder) { (result: Result<MockResponse, NetworkError>) in
+        sut.request(for: endpoint, decoder: decoder) { (result: Result<MockResponse, NetworkError>) in
             switch result {
             case let .success(object):
                 XCTAssertEqual(object.date, yyyyMMdd.date(from: "2020-11-05"))
