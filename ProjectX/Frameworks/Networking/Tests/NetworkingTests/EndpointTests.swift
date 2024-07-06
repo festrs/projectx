@@ -10,12 +10,12 @@ import XCTest
 
 final class EndpointTests: XCTestCase {
     func testPublicEndpointGet() throws {
-        let endpoint = Endpoint<EndpointKinds.Public>(
+        let endpoint = Endpoint(
             path: "/to/endpoint",
             urlQueries: ["query": "item"]
         )
 
-        let request: URLRequest = try endpoint.makeRequest(host: "testing.com", with: ())
+        let request: URLRequest = try endpoint.makeRequest(host: "testing.com")
         let expectedUrl = URL(string: "https://testing.com/to/endpoint?query=item")
 
         XCTAssertEqual(request.httpMethod, "GET")
@@ -25,13 +25,13 @@ final class EndpointTests: XCTestCase {
 
     func testPublicEndpointPost() throws {
         let bodyParameters = ["body": "parameters"]
-        let endpoint = Endpoint<EndpointKinds.Public>(
+        let endpoint = Endpoint(
             path: "/to/endpoint",
             method: .post,
             bodyParameter: .dictionary(bodyParameters)
-        )
+        ) 
 
-        let request: URLRequest = try endpoint.makeRequest(host: "testing.com", with: ())
+        let request: URLRequest = try endpoint.makeRequest(host: "testing.com")
         let expectedUrl = URL(string: "https://testing.com/to/endpoint")
 
         XCTAssertEqual(request.httpMethod, "POST")
@@ -44,13 +44,13 @@ final class EndpointTests: XCTestCase {
 
     func testPublicEndpointPut() throws {
         let bodyParameters = ["body": "parameters"]
-        let endpoint = Endpoint<EndpointKinds.Public>(
+        let endpoint = Endpoint(
             path: "/to/endpoint",
             method: .put,
             bodyParameter: .dictionary(bodyParameters)
         )
 
-        let request: URLRequest = try endpoint.makeRequest(host: "testing.com", with: ())
+        let request: URLRequest = try endpoint.makeRequest(host: "testing.com")
         let expectedUrl = URL(string: "https://testing.com/to/endpoint")
 
         XCTAssertEqual(request.httpMethod, "PUT")
@@ -63,13 +63,13 @@ final class EndpointTests: XCTestCase {
 
     func testPublicEndpointDelete() throws {
         let bodyParameters = ["body": "parameters"]
-        let endpoint = Endpoint<EndpointKinds.Public>(
+        let endpoint = Endpoint(
             path: "/to/endpoint",
             method: .delete,
             bodyParameter: .dictionary(bodyParameters)
         )
 
-        let request: URLRequest = try endpoint.makeRequest(host: "testing.com", with: ())
+        let request: URLRequest = try endpoint.makeRequest(host: "testing.com")
         let expectedUrl = URL(string: "https://testing.com/to/endpoint")
 
         XCTAssertEqual(request.httpMethod, "DELETE")
@@ -79,12 +79,13 @@ final class EndpointTests: XCTestCase {
     }
 
     func testAutenticatedEndpointGet() throws {
-        let endpoint = Endpoint<EndpointKinds.Autenticated>(
+        let endpoint = Endpoint(
             path: "/to/endpoint",
-            urlQueries: ["query":"item"]
+            urlQueries: ["query":"item"],
+            headers: ["Authorization": "Bearer token"]
         )
 
-        let request: URLRequest = try endpoint.makeRequest(host: "testing.com", with: "token")
+        let request: URLRequest = try endpoint.makeRequest(host: "testing.com")
         let expectedUrl = URL(string: "https://testing.com/to/endpoint?query=item")
 
         XCTAssertEqual(request.httpMethod, "GET")
@@ -95,13 +96,14 @@ final class EndpointTests: XCTestCase {
 
     func testAutenticatedEndpointPost() throws {
         let bodyParameters = ["body": "parameters"]
-        let endpoint = Endpoint<EndpointKinds.Autenticated>(
+        let endpoint = Endpoint(
             path: "/to/endpoint",
             method: .post,
+            headers: ["Authorization": "Bearer token"],
             bodyParameter: .dictionary(bodyParameters)
         )
 
-        let request: URLRequest = try endpoint.makeRequest(host: "testing.com", with: "token")
+        let request: URLRequest = try endpoint.makeRequest(host: "testing.com")
         let expectedUrl = URL(string: "https://testing.com/to/endpoint")
 
         XCTAssertEqual(request.httpMethod, "POST")
