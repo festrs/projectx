@@ -15,10 +15,7 @@ struct ContentView: View {
     @StateObject var router = Router()
 
     var body: some View {
-        NavigationStack(path: $router.navPath) {
-            LedgerCoordinator()
-        }
-        .environmentObject(router)
+        LedgerCoordinator()
     }
 }
 

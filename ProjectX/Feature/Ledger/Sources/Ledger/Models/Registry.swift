@@ -8,16 +8,16 @@
 import Foundation
 import SwiftData
 
-@Model 
+@Model
 class Registry {
     var createdDate: Date
-    var name: String
-    var code: String
+    let name: String
+    let code: String
     var price: Decimal
     var isSell: Bool
 
-    internal init(createdDate: Date, name: String, code: String, price: Decimal, isSell: Bool) {
-        self.createdDate = createdDate
+    init(name: String, code: String, price: Decimal, isSell: Bool) {
+        self.createdDate = Date()
         self.name = name
         self.code = code
         self.price = price

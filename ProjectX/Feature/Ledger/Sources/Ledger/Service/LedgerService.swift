@@ -6,16 +6,21 @@
 //
 
 import Foundation
-import Networking
+@preconcurrency import Networking
 
 extension Endpoint {
-    static func search(symbol: String) -> Endpoint {
-        .init(path: "/", method: .get, scheme: "http", port: 3000, urlQueries: ["symbol": symbol])
+    static func search(query: String) -> Endpoint {
+        .init(path: "/search", method: .get, scheme: "http", port: 3000, urlQueries: ["query": query])
+    }
+
+    static func quote(symbol: String) -> Endpoint {
+        .init(path: "/quote", method: .get, scheme: "http", port: 3000, urlQueries: ["symbol": symbol])
     }
 }
 
 protocol ILedgerService: Sendable {
-    func search(symbol: String) async throws -> Quote
+    func search(query: String) async throws -> SearchResult
+    func quote(symbol: String) async throws -> Quote
     func loadSymbols() throws -> [Symbol]
 }
 
@@ -28,8 +33,12 @@ final class LedgerService: ILedgerService {
         self.decoder = JSONDecoder()
     }
 
-    func search(symbol: String) async throws -> Quote {
-        try await apiClientService.request(for: .search(symbol: symbol))
+    func search(query: String) async throws -> SearchResult {
+        try await apiClientService.request(for: .search(query: query))
+    }
+
+    func quote(symbol: String) async throws -> Quote {
+        try await apiClientService.request(for: .quote(symbol: symbol))
     }
 
     func loadSymbols() throws -> [Symbol] {

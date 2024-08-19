@@ -6,25 +6,43 @@
 //
 
 import SwiftUI
+import Router
 
 struct EditRegistry: View {
-    @Bindable var registry: Registry
+    @State var registry: Registry
+    @Environment(\.modelContext) private var modelContext
+    @Environment(\.dismiss) private var dismiss
 
     var body: some View {
-        Form {
-            Section {
-                TextField("Name", text: $registry.name)
-                TextField("Code", text: $registry.code)
-                TextField("Valor", value: $registry.price, format: .currency(code: "BRL"))
-                    .keyboardType(.numberPad)
-                Toggle("isSell", isOn: $registry.isSell)
-                DatePicker(selection: $registry.createdDate, in: ...Date(), displayedComponents: .date) {
-                    Text("Date")
+        let _ = Self._printChanges()
+        NavigationStack {
+            Form {
+                Section {
+                    Text(registry.name)
+                    Text(registry.code)                    
+                    TextField("Valor", value: $registry.price, format: .currency(code: "BRL"))
+                        .keyboardType(.numberPad)
+                    Toggle("isSell", isOn: $registry.isSell)
+                    DatePicker(selection: $registry.createdDate, in: ...Date(), displayedComponents: .date) {
+                        Text("Date")
+                    }
+                }
+            }
+            .navigationTitle("Edit Registry")
+            .navigationBarTitleDisplayMode(.inline)
+            .toolbar {
+                ToolbarItem(placement: .confirmationAction) {
+                    Button(action: save) {
+                    Text("Save")
+                    }
                 }
             }
         }
-        .navigationTitle("Edit Registry")
-        .navigationBarTitleDisplayMode(.inline)
+    }
+
+    func save() {
+        modelContext.insert(registry)
+        dismiss()
     }
 }
 
